@@ -1,0 +1,205 @@
+﻿@model DLP.UI.Models.SearchDomains
+
+<div class="row">
+    @*@if (Model.EmpCompany == Model.RecipientCompany ||
+                    Model.RecipientCompany == 5 || Model.EmpCompany > 99) //Admin Mode
+        {*@
+    <table id="tblExcludeDomainss" class="table table-striped grid-layout">
+        <thead class="thead-dark">
+            <tr>
+                <th class="text-end" scope="col" onmouseover="myMoveFunction('Tls')" onmouseout="myMoveFunction('Tls')">
+                    TLS - הצפנה מאחורי הקלעים
+                </th>
+                <th class="text-end" scope="col" onmouseover="myMoveFunction('Dlp')" onmouseout="myMoveFunction('Dlp')">
+                    DLP - החרגה ממערכת למניעת דלף מידע
+                </th>
+                <th class="text-center" scope="col" onmouseover="myMoveFunction('SafeT')" onmouseout="myMoveFunction('SafeT')">
+                    סיסמה קבועה ל-SafeT
+                </th>
+                <th class="text-end" scope="col" onmouseover="myMoveFunction('Pass')" onmouseout="myMoveFunction('Pass')">
+                    שליחת קבצים מוגנים בסיסמה
+                </th>
+                <th class="text-end div_border" scope="col">
+                    עבורה
+                </th>
+            </tr>
+            @*<tr>
+                    <div class="col-lg-12 divframe_in">
+                        <div id="Tls-s" class="inv col-lg-12 divframe_in">
+                            <br />
+                            <img src="~/Content/Images/DLP/TlsExplainYes.jpg" height="273" width="932" />
+                            <br />
+                        </div>
+                        <div id="Tls-n" class="inv col-lg-12 divframe_in">
+                            <br />
+                            <img src="~/Content/Images/DLP/TlsExplainNo.jpg" height="273" width="932" />
+                            <br />
+                        </div>
+                        <div id="Dlp-p" class="inv col-lg-12 divframe_in">
+                            <br />
+                            <img src="~/Content/Images/DLP/DlpExplainYes.jpg" height="136" width="870" />
+                            <br />
+                        </div>
+                    </div>
+                </tr>*@
+        </thead>
+        <tbody>
+            <tr>
+                @if (Model.IsTls)
+                {
+                    <td style="color:green">
+                        קיים עבור:
+                        <br />
+                        @Model.SearchDomain.ToUpper()
+                        <div id="Tls" class="inv" style="position:absolute; top:600px; left:580px;">
+                            <br />
+                            <img src="~/Content/Images/DLP/TlsExplainYes.jpg" height="273" width="932" />
+                            <br />
+                        </div>
+                    </td>
+                }
+                else
+                {
+                    <td style="color:red">
+                        לא קיים עבור:
+                        <br />
+                        @Model.SearchDomain.ToUpper()
+                        <div id="Tls" class="inv" style="position:absolute; top:600px; left:850px;">
+                            <br />
+                            <img src="~/Content/Images/DLP/TlsExplainNo.jpg" height="296" width="672" />
+                            <br />
+                        </div>
+                    </td>
+                }
+                @if (Model.IsEmailDlp || Model.IsDomainDlp)
+                {
+                    <td style="color:green">
+                        קיים עבור:
+                        <br />
+                        @Model.SearchText
+                        <div id="Dlp" class="inv" style="position:absolute; top:600px; left:650px;">
+                            <br />
+                            <img src="~/Content/Images/DLP/DlpExplainYes.jpg" height="136" width="870" />
+                            <br />
+                        </div>
+                    </td>
+                }
+                else
+                {
+                    <td style="color:red">
+                        לא קיים עבור:
+                        <br />
+                        @Model.SearchText
+                        <div id="Dlp" class="inv" style="position:absolute; top:600px; left:550px;">
+                            <br />
+                            <img src="~/Content/Images/DLP/DlpExplainNo.jpg" height="298" width="968" />
+                            <br />
+                        </div>
+                    </td>
+                }
+                @if (Model.IsSafetPass)
+                {
+                    <td style="color:green">
+
+                        קיים עבור:
+                        <br />
+                        @Model.SearchText
+                        <div id="SafeT" class="inv" style="position:absolute; top:600px; left:580px;">
+                            <br />
+                            <img src="~/Content/Images/DLP/SafeTExplainYes.jpg" height="144" width="934" />
+                            <br />
+                        </div>
+                    </td>
+                }
+                else
+                {
+                    <td style="color:red">
+                        לא קיים עבור:
+                        <br />
+                        @Model.SearchText
+                        <div id="SafeT" class="inv" style="position:absolute; top:600px; left:750px;">
+                            <br />
+                            <img src="~/Content/Images/DLP/SafeTExplainNo.jpg" height="246" width="782" />
+                            <br />
+                        </div>
+                    </td>
+                }
+                @if (Model.IsEmailDlp || Model.IsDomainDlp)
+                {
+                    <td style="color:green">
+                        קיים עבור:
+                        <br />
+                        @Model.SearchText
+                        <div id="Pass" class="inv" style="position:absolute; top:600px; left:580px ">
+                            <br />
+                            <img src="~/Content/Images/DLP/PassProtectExplainYes.jpg" height="160" width="967" />
+                            <br />
+                        </div>
+                    </td>
+                }
+                else
+                {
+                    <td style="color:red">
+                        לא קיים עבור:
+
+                        <br />
+                        @Model.SearchText
+                        <div id="Pass" class="inv" style="position:absolute; top:600px; left:780px;">
+                            <br />
+                            <img src="~/Content/Images/DLP/PassProtectExplainNo.jpg" height="179" width="733" />
+                            <br />
+                        </div>
+                    </td>
+                }
+                <td style="color:green">
+                    @Model.GetEmpCompany(Model.RecipientCompany)
+                </td>
+
+            </tr>
+        </tbody>
+    </table>
+    @*}*@
+</div>
+
+@if (Model.IsDomainDlp)
+{
+    <div style="position:relative">
+        <br />
+        <img src="~/Content/Images/DLP/DomainDlp.jpg" height="84" width="632" class="float-right" />
+        <br />
+    </div>
+}
+else
+    if (Model.IsDomainSearch)
+{
+    <div style="position:relative">
+        <br />
+        <img src="~/Content/Images/DLP/DomainTls.jpg" height="326" width="728" class="float-right" />
+        <br />
+    </div>
+    <a href="http://mvs-sysaid.mvs.co.il/SubmitSR.jsp">לחץ כאן לפתיחת קריאה</a>
+}
+else
+        if (Model.IsEmailDlp)
+{
+    <div class="float-right color-yellow" dir="rtl" style="color:darkred">
+        <img src="~/Content/Images/DLP/EmailDlp.jpg" height="96" width="749" class="float-right" />
+        <br /><br />
+    </div>
+}
+else
+{
+    if (Model.IsSafetPass)
+    {
+    }
+    else
+    {
+        <div style="position:relative">
+            <br />
+            <img src="~/Content/Images/DLP/EmailNoDlp.jpg" height="324" width="738"
+                 class="float-right" />
+            <br />
+        </div>
+        <a href="http://mvs-sysaid.mvs.co.il/SubmitSR.jsp">לחץ כאן לפתיחת קריאה</a>
+    }
+}

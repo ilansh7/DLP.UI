@@ -1,0 +1,324 @@
+﻿@model DLP.UI.Models.SearchVM
+@{
+    ViewData["Title"] = "Search";
+}
+<style>
+    div {
+        margin: 0;
+        text-align: right;
+        direction: rtl;
+        font-size: 12px;
+        display: block;
+    }
+
+        div.h7 {
+            margin: 0;
+            text-align: right;
+            direction: rtl;
+        }
+</style>
+<div style="display:block">
+    <table class="table table-striped w-auto float-right table-bordered"
+           style="display:block">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">
+                    TLS - הצפנה מאחורי הקלעים
+                </th>
+                <th scope="col">
+                    DLP - החרגה ממערכת למניעת דלף מידע
+                </th>
+                <th scope="col">
+                    SafeT סיסמה קבועה
+                </th>
+                <th scope="col">
+                    שליחת קבצים מוגנים בסיסמה
+                </th>
+                <th scope="col">
+                    מוחרג עבור
+                </th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.IsDomainDlp)@*All Domain Excluded*@
+            {
+                <tr>
+                    <td style="color:green">
+                        קיים עבור:
+                        <br />
+                        @Model.SearchDomain.ToUpper()
+                    </td>
+                    <td style="color:green">
+                        קיים עבור:
+                        <br />
+                        @Model.SearchText
+                    </td>
+                    <td style="color:red">
+                        <p>לא קיים</p>
+                        <p style="color:green">הדומיין מוחרג,אין צורך בשליחה דרך SafeT</p>
+                    </td>
+                    if (Model.IsAllowEncryption)@*All Domain Excluded and Allow
+                        Encryption*@
+                    {
+                        <td style="color:green">
+                            ניתן
+                        </td>
+                    }
+                    else @*All Domain Excluded and Encryption NOT ALLOWED*@
+                    {
+                        <td style="color:red">
+                            <p>לא ניתן</p>
+                            @Html.ActionLink("לחץ כאן לפתיחת קריאה בנושא זה",
+     "SendToSysAid")
+                            @*<a asp-page="/SendToSysAid">לחץ כאן לפתיחת קריאה בנושא
+                                זה</a>*@
+                        </td>
+                    }
+                    <td style="color:green">
+                        כל הדומיינים ברשת
+                    </td>
+                </tr>
+            }
+            else /*All Domain NOT Excluded*/
+            
+            if (Model.IsSafetPass)@*SafeT Password EXIST*@
+            {
+                <tr>
+                    if (Model.IsTls)
+
+                    {
+                        <td style="color:green">
+                            קיים עבור:
+                            <br />
+                            @Model.SearchDomain.ToUpper()
+                        </td>
+                    }
+                    else
+                    {
+                        <td style="color:red">
+                            לא קיים עבור:
+                            <br />
+                            @Model.SearchDomain.ToUpper()
+                        </td>
+                    }
+                    <td style="color:red">
+                        לא קיים עבור:
+                        <br />
+                        @Model.SearchText
+                    </td>
+                    <td style="color:green">
+                        קיים עבור:
+                        <br />
+                        @Model.SearchText
+                    </td>
+                    <td style="color:red">
+                        לא קיים עבור:
+                        <br />
+                        @Model.SearchText
+                    </td>
+                    <td style="color:green">
+                        @Model.GetEmpCompany(Model.EmpCompany)
+                    </td>
+                </tr>
+            }
+
+            else  /*SafeT Password NOT EXIST*/
+            if (Model.IsDlp)@*Have TLS and DLP*@
+            @foreach (var itemTls in Model.Tls)
+                foreach (var itemDlp in Model.Dlp)
+                {
+
+                    if (itemDlp.CompanyType == Model.EmpCompany ||
+                    Model.EmpCompany > 99) //Admin Mode
+                    {
+                        <tr>
+                            <td style="color:green">
+                                קיים עבור:
+                                <br />
+                                @Model.SearchDomain.ToUpper()
+                            </td>
+                            <td style="color:green">
+                                קיים עבור:
+                                <br />
+                                @Html.DisplayFor(modelItem => itemDlp.EmailAddress)
+                            </td>
+                            <td style="color:red">
+                                לא קיים
+                            </td>
+                            if (Model.IsAllowEncryption)
+                            {
+                                <td style="color:green">
+                                    ניתן
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="color:red">
+                                    לא ניתן
+                                </td>
+                            }
+                            <td style="color:green">
+                                @Model.GetEmpCompany(itemDlp.CompanyType)
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        if (itemDlp.CompanyType == Model.EmpCompany)
+                        {
+                            <tr>
+                                <td style="color:green">
+                                    @Html.DisplayFor(modelItem => itemTls.Name)
+                                </td>
+
+                                <td>
+                                    <p style="color:red">לא קיים</p>
+                                </td>
+                                if (Model.IsSafetPass)
+                                {
+                                    <td>
+                                        <p style="color:green">קיים</p>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td style="color:red">
+                                        לא קיים
+                                    </td>
+                                }
+                                if (Model.IsAllowEncryption)
+                                {
+                                    <td style="color:green">
+                                        ניתן
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td style="color:red">
+                                        לא ניתן
+                                    </td>
+                                }
+                                <td style="color:green">
+                                    @Model.GetEmpCompany(itemDlp.CompanyType)
+                                </td>
+                            </tr>
+                        }
+                    }
+                }
+            else
+            if (Model.IsDlp)
+            {
+                @foreach (var itemTls in Model.Tls)
+                {
+                    <tr>
+                        <td style="color:green">
+                            קיים עבור:
+                            <br />
+                            @Html.DisplayFor(modelItem => itemTls.Name)
+                        </td>
+
+                        <td>
+                            <p style="color:red">לא קיים</p>
+                        </td>
+                        if (Model.IsSafetPass)
+                        {
+                            <td>
+                                <p style="color:green">קיים</p>
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="color:red">
+                                לא קיים
+                            </td>
+                        }
+                        if (Model.IsAllowEncryption)
+                        {
+                            <td style="color:green">
+                                ניתן
+                            </td>
+                        }
+                        else
+                        {
+                            <td style="color:red">
+                                לא ניתן
+                            </td>
+                        }
+                        <td style="color:green">
+                            @Model.GetEmpCompany(Model.EmpCompany)
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td style="color:green">
+                        קיים עבור:
+                        <br />
+                        @Html.DisplayFor(modelItem => Model.SearchDomain)
+                    </td>
+                    <td>
+                        <p style="color:red">לא קיים</p>
+                    </td>
+                    <td style="color:red">
+
+                        לא קיים
+                    </td>
+
+                    <td style="color:red">
+                        לא ניתן
+                    </td>
+                    <td style="color:green">
+                        כל החברות
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+@if (Model.IsDomainDlp)
+{
+    <div style="position:relative">
+        <br />
+        <img src="~/Images/DomainDlp.jpg" height="84" width="632" class="float-right" />
+        <br />
+    </div>
+}
+else
+    if (Model.IsDomainSearch)
+    {
+        <div style="position:relative">
+            <br />
+            <img src="~/Images/DomainTls.jpg" height="326" width="728" class="float-right" />
+            <br />
+        </div>
+        <a href="http://mvs-sysaid.mvs.co.il/SubmitSR.jsp">לחץ כאן לפתיחת קריאה</a>
+    }
+    else
+        if (Model.IsEmailDlp)
+        {
+            <div class="float-right color-yellow" dir="rtl" style="color:darkred">
+                <img src="~/Images/EmailDlp.jpg" height="96" width="749" class="float-right" />
+
+                <br /><br />
+            </div>
+        }
+        else
+        {
+            if (Model.IsSafetPass)
+            {
+            }
+            else
+                {
+                    <div style="position:relative">
+                        <br />
+                        <img src="~/Images/EmailNoDlp.jpg" height="324" width="738"
+                             class="float-right" />
+                        <br />
+                    </div>
+                    <a href="http://mvs-sysaid.mvs.co.il/SubmitSR.jsp">לחץ כאן לפתיחת קריאה</a>
+                }
+        }

@@ -1,0 +1,144 @@
+﻿@using DLP.Services
+@model IEnumerable<DLP.Entities.V_DlpTlsInfo>
+
+@{
+    ViewBag.Title = "DLP's Search";
+}
+
+@*@Html.ActionLink("Create New", "Create")*@
+
+<div class="row" @*style="background: #efefef;"*@>
+    <div class="col" style="float: left; padding: 1em 1em 0 0; width: 20%; ">
+        @*<img src="~/Content/images/icons/search.png" width="24" />
+            &nbsp;&nbsp;&nbsp;&nbsp;*@
+        <input id="searchFilter" class="searchFilter btn btn-secondary" onkeyup="searchFilter(this.value, 'tblExcludeDomains', 1, 3)" />
+        @*<span class="glyphicon glyphicon-search"></span>*@
+        <svg class="bi pe-none me-2 svg-md"><use xlink:href="#bi-search"></svg>
+        @*&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href='@Url.Action("AddEmployee", "Employee", new { })'>
+                <img src='@Url.Content("~/Content/Images/icons/addItem.png")' title='Create new Employee' />
+            </a>*@
+    </div>
+    <div class="col-10" style="float: left; ">
+        &nbsp;
+    </div>
+</div>
+@*<div class="row" style="padding-bottom: 10px;">
+    </div>*@
+
+<div class="row">
+    <table id="tblExcludeDomains" class="table table-striped grid-layout">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EmailAddress)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CompanyType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ExcludeType)
+            </th>
+            @*<th>
+                    @Html.DisplayNameFor(model => model.Tls_Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Dlp_ID)
+                </th>*@
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmailAddress)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CompanyType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ExcludeType)
+                </td>
+                @*<td>
+                        @Html.DisplayFor(modelItem => item.Tls_Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dlp_ID)
+                    </td>*@
+                @*<td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                    </td>*@
+                <td style="font-size: 1em;">
+                    <a title="Edit address @item.EmailAddress" href='@Url.Action("Index", "Reports", new { id = item.Dlp_ID })'>
+                        @*<img src=@Url.Content("~/Content/Images/icons/editItem.png") title='Edit Employee @item.EmailAddress' />*@
+                        <svg class="bi pe-none me-2 svg-lg"><use xlink:href="#bi-pencil-square"></svg>
+                    </a>
+                    &nbsp;&nbsp;&nbsp;
+                    <a title="Remove mail @item.EmailAddress" href='@Url.Action("Index", "Reports", new { id = item.Dlp_ID })'>
+                        @*<img src='@Url.Content("~/Content/Images/icons/deleteItem.png")' title='Remove mail @item.EmailAddress' />*@
+                        @*<span class="glyphicon glyphicon-remove-sign"></span>*@
+                        <svg class="bi pe-none me-2 svg-lg"><use xlink:href="#bi-trash3"></svg>
+                    </a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+@*@model UI.Models.SearchVM*@
+<style>
+    table {
+        border-collapse: separate;
+        border: solid black 1px;
+        border-radius: 10px;
+    }
+    /*td, th {
+        border-left: solid black 1px;
+        border-top: solid black 1px;
+    }*/
+    th {
+        /*background-color: blue;
+        border-top: none;*/
+        text-align: right;
+    }
+
+        td:first-child, th:first-child {
+            /*border-left: none;*/
+        }
+
+    .div_border {
+        border-width: 0px;
+        border-style: solid;
+    }
+
+    .div_border_color_blue {
+        border-color: blue;
+    }
+
+    .div_border_color_red {
+        border-color: red;
+    }
+
+    .div_border_color_yellow {
+        border-color: cyan;
+    }
+
+    .div_border_color_green {
+        border-color: green;
+    }
+
+    .div_border_color_blue {
+        border-color: blue;
+    }
+
+    .div_border_color_orange {
+        border-color: orange;
+    }
+
+    #tblExcludeDomains tr td:last-of-type {
+        font-size: 1em;
+    }
+</style>
+

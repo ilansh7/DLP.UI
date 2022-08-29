@@ -1,0 +1,276 @@
+﻿@using DLP.Services
+
+<!DOCTYPE html>
+<html dir="rtl">
+    <head>
+        <meta charset="utf-8" />
+        @*<meta dir="rtl" />*@
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        @*<title>@ViewBag.Title - My ASP.NET Application</title>*@
+        <title>@ViewBag.Title</title>
+        <link rel="shortcut icon" type="image/png" href="/Content/Images/icons/mvs.png" />
+        <style>
+            div {
+                margin: 0;
+                text-align: right;
+                direction: rtl;
+                /*font-size: 12px;*/
+                display: block;
+            }
+
+                div.h7 {
+                    margin: 0;
+                    text-align: right;
+                    direction: rtl;
+                }
+
+                div.p {
+                    font-size: 11px;
+                }
+
+            .button_text {
+                font-size: 1.5em;
+                font-weight: bold;
+            }
+
+            .button_text_1 {
+                font-size: 1.4em;
+                font-weight: bold;
+            }
+
+            .menu_text {
+                font-size: 1.6em;
+                font-weight: bold;
+                text-decoration: none;
+                color: black;
+            }
+
+            .sub_menu_text {
+                font-size: 1.4em;
+                /*font-weight: bold;*/
+                text-decoration: none;
+                color: black;
+            }
+
+            .mvs-logo {
+                max-height: 80px !important;
+                /*padding: 0 1em 1em 1em;*/
+            }
+
+            .links {
+                padding-top: 1em;
+            }
+
+            .boxhead {
+                /*text-align: right;*/
+                padding: 1em 0.5em 1em 0.5em;
+            }
+
+                .boxhead a,
+                .boxhead a:hover {
+                    color: #FFFFFF;
+                    text-decoration: none;
+                }
+
+            .divframe {
+                /*border: 1px solid green;*/
+            }
+
+            .divframe_in {
+                /*border: 1px solid red;*/
+                /*padding: 2px;*/
+            }
+
+            .divframe_inn {
+                /*border: 1px solid magenta;*/
+                /*padding: 2px;*/
+            }
+
+            .enlarge_font {
+                font-size: larger;
+            }
+
+            .svg-md {
+                width: 1.75em;
+                height: 1.75em;
+                /*font-size: 16px;*/
+            }
+
+            .svg-lg {
+                width: 3em;
+                height: 3em;
+                /*margin-right: 4em;
+                    font-size: 16px;*/
+            }
+
+            .vl {
+                border-right: 3px solid black;
+                /*height: 500px;*/
+            }
+
+            .main-section {
+                /*height: 400px;*/
+                border-right: 3px solid black;
+                /*border: 1px solid red;*/
+                /*height: 500px;*/
+            }
+
+            .hl {
+                border-top: 5px solid red;
+                /*height: 500px;*/
+            }
+
+            .headerr img {
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: 100%;
+            }
+
+            .search-filter {
+                float: left;
+                padding: 1em 1em 1em 0;
+                width: 20%;
+            }
+        </style>
+
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+
+    </head>
+
+    <body style="font-size: 13px;">
+        @RenderPage("~/Views/Shared/Svg.cshtml")
+
+        <div id="page" class="divframe col-lg-12 text-center">
+            <nav class="col-lg-12 text-center bg-dark rounded-2">
+                <div class="col-lg-10 text-center">
+                    <br />
+                    <p class="float-lg-start text-white">! Hello, @User.Identity.Name</p>
+                </div>
+                <div class="col-lg-2 float-lg-end p-4 container-fluid">
+                    @*<div class="col-lg-4 text-center divframe_in"></div>
+                        <div class="col-lg-8 text-center divframe_inn headerr">*@
+                    @*style="grid-area: auto / 4 / auto / auto;"*@
+                    <a class="navbar-brand" href="/Home/Index">
+                        @if (SecurityServices.IsUserInSGY(""))
+                        {
+                            <img src='@Url.Content("~/Content/Images/sgy_logo.jpg")' alt="sgy_logo" title='Sgy Logo' class="mvs-logo" />
+                        }
+                        else
+                        {
+                            <img src='@Url.Content("~/Content/Images/mvs_logo.jpg")' alt="mvs_logo" title='Mvs Logo' class="mvs-logo" />
+                        }
+                    </a>
+                    <br /><br /><br /><br /><br /><br />
+                    @*</div>*@
+                </div>
+            </nav>
+            <hr />
+            <div id="mainSection" class="col-lg-10 container-fluid text-center main-section">
+                <br />
+                @RenderBody()
+                @*<hr class="hl" />*@
+            </div>
+            <hr class="hl" />
+
+            <div id="sidemenu" class="col-lg-2 divframe_in" style="padding: 0; margin: 0;">
+                <div class="flex-shrink-0 enlarge_font">
+                    @*bg-light*@
+                    <ul class="list-unstyled" style="padding: 2px;">
+                        <!--<li class="mb-1">
+                        <a href="/Home/Index" class="nav-link py-3 border-bottom rounded-0 btn btn-lg d-inline-flex align-items-center rounded border-0 collapsed" title="א' אהל&#013ב' זה בית&#013ג' זה גמל גדול" data-bs-toggle="tooltip" data-bs-placement="right">-->
+                        @*<a href="/Home/Index" class="nav-link py-3 border-bottom rounded-0 btn btn-lg d-inline-flex align-items-center rounded border-0 collapsed" title="א' אהל&#013ב' זה בית&#013ג' זה גמל גדול" data-bs-toggle="tooltip" data-bs-placement="right">*@
+                        <!--<svg class="bi pe-none me-2 svg-lg" width="25" height="25" aria-label="Home"><use xlink:href="#home" /></svg>
+                                <span class="button_text_1">&nbsp;&nbsp;ראשי</span>
+                            </a>
+                        </li>-->
+                        <li class="mb-1">
+                            <svg class="bi pe-none me-2 svg-md" aria-label="Home"><use xlink:href="#home" /></svg>
+                            <button class="btn btn-lg d-inline-flex align-items-center border-0" aria-expanded="false" onclick="location.href='@Url.Action("Index", "Home")';return false;"><span class="button_text">ראשי</span></button>
+                        </li>
+                        @*<li class="mb-1">
+                                <button class="btn btn-lg d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" aria-expanded="false">
+                                <a href="" class="nav-link py-3 border-bottom rounded-0" title="ראשי" data-bs-toggle="tooltip" data-bs-placement="right">
+                                    <svg class="bi pe-none me-2 svg-md" width="24" height="24" role="img" aria-label="Home"><use xlink:href="#home" /></svg>
+                                </a>
+                                <span class="button_text">ראשי</span>
+                                </button>
+                            </li>*@
+                        <li class="mb-1">
+                            <svg class="bi pe-none me-2 svg-md" aria-label="bi-stack"><use xlink:href="#bi-stack" /></svg>
+                            <!-- <button class="btn d-inline-flex align-items-center collapsed border-0"                    data-bs-toggle="collapse" data-bs-target="#components-collapse" aria-expanded="false"  aria-controls="components-collapse">THKI</button> -->
+                            <!-- btn-toggle rounded -->
+                            <button class="btn btn-lg d-inline-flex align-items-center collapsed border-0" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true"><span class="button_text">דוחו"ת</span></button>
+                            <div class="collapse vl-sidebar" id="home-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a class="link-dark d-inline-flex text-decoration-none rounded boxhead">@Html.ActionLink("דומיינים מוחרגים", "ExcludeDomains", "Reports", null, new { @class = "sub_menu_text", style = "text-decoration:none;" })</a></li>
+                                    <li><a class="link-dark d-inline-flex text-decoration-none rounded boxhead">@Html.ActionLink("כתובות מייל מוחרגות", "Index", "Home", new { id = string.Empty }, new { @class = "sub_menu_text", style = "text-decoration:none;" })</a></li>
+                                    <li><a class="link-dark d-inline-flex text-decoration-none rounded boxhead">@Html.ActionLink("דומיינים עם TLS", "Index", "Home", new { id = string.Empty }, new { @class = "sub_menu_text", style = "text-decoration:none;" })</a></li>
+                                    <li><a class="link-dark d-inline-flex text-decoration-none rounded boxhead">@Html.ActionLink("מייל עם סיסמה קבועה ל-SafeT", "Index", "Home", null, new { @class = "sub_menu_text", style = "text-decoration:none;" })</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="mb-1">
+                            <svg class="bi pe-none me-2 svg-md" aria-label="speedometer2"><use xlink:href="#speedometer2" /></svg>
+                            <button class="btn btn-lg d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false"><span class="button_text">ניהול מערכת</span></button>
+                            <div class="collapse" id="dashboard-collapse">
+                                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">@Html.ActionLink("הוספת TLS", "Index", "Home", new { id = string.Empty }, new { @class = "sub_menu_text", style = "text-decoration:none;" })</a></li>
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">@Html.ActionLink("החרגה ממערכת DLP", "Index", "Home", new { id = string.Empty }, new { @class = "sub_menu_text", style = "text-decoration:none;" })</a></li>
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">@Html.ActionLink("הוספת הרשאה לשליחת מיילים מוגנים בסיסמה", "Index", "Home", new { id = string.Empty }, new { @class = "sub_menu_text", style = "text-decoration:none;" })</a></li>
+                                    <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Annually</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        @*<li class="mb-1">
+                                <svg class="bi pe-none me-2 svg-md"><use xlink:href="#bi-apple" /></svg>
+                                <button class="btn btn-lg d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false"><span class="button_text">Orders</span></button>
+                                <div class="collapse" id="orders-collapse">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New</a></li>
+                                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Processed</a></li>
+                                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Shipped</a></li>
+                                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Returned</a></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="mb-1">
+                                <svg class="bi pe-none me-2 svg-md"><use xlink:href="#bi-qr-code" /></svg>
+                                <button class="btn btn-lg d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false"><span class="button_text">Account</span></button>
+                                <div class="collapse" id="account-collapse">
+                                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">New...</a></li>
+                                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Profile</a></li>
+                                        <li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Settings</a></li>
+                                        <li>
+                                            <a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Sign out</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>*@
+                        @*<li class="mb-1">
+                                //<button class="btn btn-lg d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" aria-expanded="false"><span class="button_text">סתם בועה</span></button>
+                                <a href="/Home/Index" class="nav-link py-3 border-bottom rounded-0 btn btn-lg d-inline-flex align-items-center rounded border-0 collapsed" title="סמליל של מנש'מע" data-bs-toggle="tooltip" data-bs-placement="right">
+                                   //<svg class="bi pe-none" width="24" height="24" role="img" aria-label="Dashboard"><use xlink:href="#speedometer2" /></svg>
+                                    <svg class="bi pe-none me-2 svg-md"><use xlink:href="#bi-whatsapp" /></svg>
+                                    <span class="button_text">&nbsp;&nbsp;סתם בועה</span>
+                                </a>
+                            </li>*@
+                    </ul>
+                </div>
+            </div>
+            <br style="border-bottom-width: 5px; border-bottom-color: red;" />
+            <hr />
+            <div id="footer" class="col-lg-12 text-center divframe_inn text-center">
+                <p dir="ltr">&copy; @DateTime.Now.Year - MVS.DLP Application</p>
+            </div>
+        </div>
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Scripts.Render("~/bundles/bootstrap")
+        @Scripts.Render("~/bundles/scripts")
+        @RenderSection("scripts", required: false)
+
+    </body>
+</html>
